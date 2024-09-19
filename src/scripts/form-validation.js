@@ -35,7 +35,7 @@ const formValidation = (formInput) => {
 
         if (event.target.validity.tooShort) {
             event.target.setCustomValidity(
-                "Minimal panjang adalah tiga karakter"
+                "Minimal panjang adalah 3 karakter"
             );
             return;
         }
@@ -54,7 +54,7 @@ const formValidation = (formInput) => {
 
         if (event.target.validity.tooShort) {
             event.target.setCustomValidity(
-                "Minimal panjang adalah enam karakter"
+                "Minimal panjang adalah 6 karakter"
             );
             return;
         }
