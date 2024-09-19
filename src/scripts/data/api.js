@@ -3,7 +3,7 @@ const BASE_URL = 'https://notes-api.dicoding.dev/v2';
 function getAllNotes() {
     return fetch(`${BASE_URL}/notes`)
         .then((response) => response.json())
-        .then((data) => data.notes);
+        .then((data) => data.data);
 }
 
 
