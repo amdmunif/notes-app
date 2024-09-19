@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Notes Apps</title>
+
+        <link rel="stylesheet" href="./src/styles/style.css" />
+
+        <!-- <link rel="stylesheet" href="node_modules/aos/dist/aos.css" />
+        <link
+            rel="stylesheet"
+            href="node_modules/sweetalert2/dist/sweetalert2.min.css"
+        /> -->
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+            rel="stylesheet"
+        />
+
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <h1>Notes Apps</h1>
+            </nav>
+        </header>
+
+        <main>
+            <section id="notes-form" class="card">
+                <form id="form-input" class="card-body c-card" data-aos="fade-up">
+                    
+                    <form-control
+                        input-name="title"
+                        label="Judul Catatan"
+                        placeholder="Contoh : Deadline Belajar"
+                        min-length="3"
+                        description="Isi dengan judul catatan (min 6 karakter)"
+                    ></form-control>
+
+                    <form-control
+                        input-name="catatan"
+                        label="Isi Catatan"
+                        placeholder="Contoh : Deadline belajar segera!"
+                        min-length="6"
+                        description="Isi dengan catatan (min 6 karakter)"
+                    ></form-control>
+                    
+                    <button class="btn btn-primary" id="save-button">Buat Catatan</button>
+
+                </form>
+            </section>
+
+
+            <section class="notes-container" id="notes-container">
+                <h2>Daftar Catatan</h2>
+                <div id="notes-lists"></div>
+            </section>
+        
+        </main>
+
+        <app-footer></app-footer>
+        <!-- <script 
+            type="module" 
+            src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"
+        ></script>
+        <script src="node_modules/aos/dist/aos.js"></script>
+        <script type="module" src="./src/scripts/home.js"></script> -->
+        <script src="dist/bundle.js"></script>
+    </body>
+</html>
