@@ -1,16 +1,16 @@
 class LoadingOverlay extends HTMLElement {
-    constructor() {
-      super();
-      this._shadowRoot = this.attachShadow({ mode: "closed" });
-      this._show = this.getAttribute("show") == "true";
-    }
-  
-    connectedCallback() {
-      this.render();
-    }
-  
-    render() {
-      this._shadowRoot.innerHTML = ` <style>
+  constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({ mode: "closed" });
+    this._show = this.getAttribute("show") == "true";
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
+    this._shadowRoot.innerHTML = ` <style>
           .loading-overlay {
             position: fixed;
             top: 0;
@@ -26,6 +26,6 @@ class LoadingOverlay extends HTMLElement {
         <div class="loading-overlay">
         <loading-indicator display="block"></loading-indicator>
         </div>`;
-    }
   }
-  customElements.define("loading-overlay", LoadingOverlay);
+}
+customElements.define("loading-overlay", LoadingOverlay);

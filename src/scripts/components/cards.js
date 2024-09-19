@@ -1,39 +1,33 @@
 class NotesItem extends HTMLElement {
-    static observedAttributes = [
-        "id",
-        "index",
-        "title",
-        "body",
-        "createdAt",
-    ];
+  static observedAttributes = ["id", "index", "title", "body", "createdAt"];
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this._id = this.getAttribute("id");
-        this._index = this.getAttribute("index");
-        this._title = this.getAttribute("title");
-        this._body = this.getAttribute("body");
-        this._createdAt = this.getAttribute("createdAt");
-    }
-    
-    handleDelete() {
-        this.dispatchEvent(
-            new CustomEvent("notes-delete", {
-                detail: {
-                    id: this._id,
-                },
-                bubbles: true,
-            })
-        );
-    }
+    this._id = this.getAttribute("id");
+    this._index = this.getAttribute("index");
+    this._title = this.getAttribute("title");
+    this._body = this.getAttribute("body");
+    this._createdAt = this.getAttribute("createdAt");
+  }
 
-    connectedCallback() {
-        this.render();
-    }
+  handleDelete() {
+    this.dispatchEvent(
+      new CustomEvent("notes-delete", {
+        detail: {
+          id: this._id,
+        },
+        bubbles: true,
+      }),
+    );
+  }
 
-    render() {
-        this.innerHTML = `
+  connectedCallback() {
+    this.render();
+  }
+
+  render() {
+    this.innerHTML = `
             <div class="card" style="background-color: #FDFAD9;" data-aos="fade-down" data-aos-delay="${100 * this._index}">
                 <div>
                     <p class="text-title">${this._title}</p>
@@ -43,18 +37,17 @@ class NotesItem extends HTMLElement {
             </div>
         `;
 
-        const deleteButton = this.querySelector("delete-button");
+    const deleteButton = this.querySelector("delete-button");
 
-        if (deleteButton) {
-            deleteButton.addEventListener("click", this.handleDelete);
-        }
-
+    if (deleteButton) {
+      deleteButton.addEventListener("click", this.handleDelete);
     }
+  }
 
-    attributeChangedCallback(title, oldValue, newValue) {
-        this[`_${title}`] = newValue;
-        this.render();
-    }
+  attributeChangedCallback(title, oldValue, newValue) {
+    this[`_${title}`] = newValue;
+    this.render();
+  }
 }
 
 customElements.define("notes-item", NotesItem);

@@ -1,17 +1,17 @@
 import formValidation from "../form-validation";
 
-class NotesForm extends HTMLElement{
-    constructor() {
-        super()
-    }
+class NotesForm extends HTMLElement {
+  constructor() {
+    super();
+  }
 
-    async connectedCallback() {
-        await this.render();
-        formValidation(document.getElementById(this.getAttribute("form-id")));
-    }
+  async connectedCallback() {
+    await this.render();
+    formValidation(document.getElementById(this.getAttribute("form-id")));
+  }
 
-    async render() {
-        this.innerHTML = `<form 
+  async render() {
+    this.innerHTML = `<form 
             id=${this.getAttribute("form-id")} 
             class="card-body c-card" 
             data-aos="fade-down"
@@ -34,7 +34,7 @@ class NotesForm extends HTMLElement{
             <button class="btn btn-primary" id="save-button">Simpan Catatan</button>
 
         </form>`;
-    }
+  }
 }
 
 customElements.define("notes-form", NotesForm);

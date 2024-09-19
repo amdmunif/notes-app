@@ -1,16 +1,16 @@
 class LoadingIndicator extends HTMLElement {
-    constructor() {
-      super();
-      this._shadowRoot = this.attachShadow({ mode: "closed" });
-      this._display = this.getAttribute("display");
-    }
-  
-    static get observedAttributes() {
-      return ["display"];
-    }
-  
-    getCss() {
-      return `
+  constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({ mode: "closed" });
+    this._display = this.getAttribute("display");
+  }
+
+  static get observedAttributes() {
+    return ["display"];
+  }
+
+  getCss() {
+    return `
       .lds-ring,
       .lds-ring div {
         box-sizing: border-box;
@@ -52,23 +52,23 @@ class LoadingIndicator extends HTMLElement {
         }
       }
     `;
-    }
-    connectedCallback() {
-      this.render();
-    }
-    render() {
-      this._shadowRoot.innerHTML = `
+  }
+  connectedCallback() {
+    this.render();
+  }
+  render() {
+    this._shadowRoot.innerHTML = `
         <style>${this.getCss()}</style>
         <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
       `;
-    }
-  
-    attributeChangedCallback(name, _, newValue) {
-      if (name === "display") {
-        this._display = newValue;
-        this.render();
-      }
+  }
+
+  attributeChangedCallback(name, _, newValue) {
+    if (name === "display") {
+      this._display = newValue;
+      this.render();
     }
   }
-  
-  customElements.define("loading-indicator", LoadingIndicator);
+}
+
+customElements.define("loading-indicator", LoadingIndicator);
