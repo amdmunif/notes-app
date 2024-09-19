@@ -28,17 +28,6 @@ class NotesItem extends HTMLElement {
         );
     }
 
-    handleUpdate() {
-        this.dispatchEvent(
-            new CustomEvent("notes-update", {
-                detail: {
-                    id: this._id,
-                },
-                bubbles: true,
-            })
-        );
-    }
-
     connectedCallback() {
         this.render();
     }
@@ -49,7 +38,6 @@ class NotesItem extends HTMLElement {
                 <div>
                     <p class="text-title">${this._title}</p>
                     <p class="text-body"><b>Catatan :</b> ${this._body}</p>
-                    <p class="text-small">${this.createdAt}</p>
                 </div>
                 <delete-button data-id=${this._id}></delete-button>
             </div>

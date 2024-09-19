@@ -6,7 +6,6 @@ function getAllNotes() {
         .then((data) => data.data);
 }
 
-
 async function addNotes({ id, title, body }) {
     const options = {
         method: "POST",

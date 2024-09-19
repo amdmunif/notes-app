@@ -80,7 +80,7 @@ function createNotesElement(notesItem, index) {
     notesElement.setAttribute('createdAt', notesItem.createdAt)
 
     notesElement.addEventListener("notes-delete", (event) => {
-        deleteNotesHandler(notesId.id);
+        deleteNotesHandler(notesItem.id);
     });
 
     return notesElement;
