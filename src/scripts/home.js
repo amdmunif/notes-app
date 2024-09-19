@@ -1,15 +1,10 @@
 import "./components/index.js";
-
 import formValidation from "./form-validation.js";
-
 import Swal, * as Sweetalert2 from 'sweetalert2';
 import AOS from 'aos';
-
 import '../styles/style.css';
 import 'aos/dist/aos.css';
-
 import { addNotes, getAllNotes, deleteNotes } from "./data/api.js";
-
 
 const RENDER_EVENT = "RENDER_EVENT";
 
@@ -17,6 +12,7 @@ const formInput = document.getElementById("add-form");
 
 formInput.addEventListener("submit", async (e) => {
     e.preventDefault();
+    document.body.appendChild(document.createElement("loading-overlay"));
 
     // Ambil data dari Form
     const title = formInput.elements.title.value
@@ -30,19 +26,22 @@ formInput.addEventListener("submit", async (e) => {
         createdAt: new Date().toISOString(),
     };
 
-    await addNotes(newNotes);
-    
-    Sweetalert2.fire({
-        title: "Catatan berhasil ditambahkan",
-        icon: "success",
-        confirmButtonText: "OK",
-    });
-    
+    try {
+        await addNotes(newNotes);
+        Sweetalert2.fire({
+            title: "Catatan berhasil ditambahkan",
+            icon: "success",
+            confirmButtonText: "OK",
+        });
+      } finally {
+        setTimeout(() => {
+          document.querySelector("loading-overlay").remove();
+          formInput.reset();
+        }, 500);
+      }
+
     // Render data
     document.dispatchEvent(new Event(RENDER_EVENT))
-
-    // Reset form
-    formInput.reset()
 });
 
 function deleteNotesHandler(notesId) {
@@ -56,6 +55,8 @@ function deleteNotesHandler(notesId) {
         confirmButtonColor: "blue",
     }).then(async (result) => {
         if (result.isConfirmed) {
+            document.body.appendChild(document.createElement("loading-overlay"));
+
             await deleteNotes(notesId);
             Sweetalert2.fire({
                 title: "Catatan berhasil di hapus!",
@@ -87,20 +88,24 @@ function createNotesElement(notesItem, index) {
 
 document.addEventListener(RENDER_EVENT, async function () {
     const notesList = document.getElementById("notes-lists");
-
-    // Panggil fungsi getAllNotes
-    const NOTES = await getAllNotes()
-
-    // clearing todo list item
+  
+    // TODO : panggil function getAllNotes
+    const loadingIndicator = document.createElement("loading-indicator");
     notesList.innerHTML = "";
-
-    let index = 1
-    for (const notesItem of NOTES) {
+    notesList.parentElement.insertBefore(loadingIndicator, notesList);
+    try {
+      const NOTES = await getAllNotes();
+      let index = 1;
+      for (const notesItem of NOTES) {
         notesList.append(createNotesElement(notesItem, index));
         index++;
+      }
+    } finally {
+      setTimeout(() => {
+        loadingIndicator.setAttribute("display", "none");
+      }, 1000);
     }
-
-});
+  });
 
 document.addEventListener("DOMContentLoaded", async () => {
     AOS.init();
